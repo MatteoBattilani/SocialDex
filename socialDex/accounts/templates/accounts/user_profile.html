@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} - {{ user }}{% endblock head_title %}
+
+{% block content %}
+<div class="row mt-3">
+    <div class="col-4">
+        <div class="card my-2">
+            <div class="card-header">
+                <!--Se request.user (ovvero noi) corrisponde allo user per cui stiamo richiedendo il profilo, allora viene mostrato "Il Tuo"-->
+                <h4>{% if request.user == user %}Your {% endif %}Profile</h4>
+            </div>
+      <br>
+      <div class="media" style="text-align: center">
+            <img height="150" width="150" class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+
+      </div>
+            <div class="card-body">
+                <p class="lead" style="text-align: center">@{{ user }}</p>
+                <p class="mb-0"><strong>E-mail:</strong> {{ user.email }}</p>
+                <p class="mb-0"><strong>Registration:</strong> {{ user.date_joined|date:"d M Y" }}</p>
+                <p class="mb-0"><strong>Posts:</strong> {{ user.posts.count }}</p>
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+
+    <div class="col-8">
+        <div class="card my-2">
+            <div class="card-header">
+                <h4>Posts</h4>
+            </div>
+            <div class="card-body">
+                {% for post in user.posts.all %}
+                    <a href="{{ post.get_absolute_url }}"><p class="text-muted">{{ post.title|truncatewords:"10" }}</p></a>
+                {% empty %}
+                    {% if request.user != user %}
+                        <p>{{ user }} has not created any posts!</p>
+                    {% else %}
+                        <p>You have not created any posts! Start Now!</p>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-footer"></div>
+        </div>
+    </div>
+</div>
+
+{% if request.user == user %}
+<br>
+<div>
+      <form method= "POST" enctype="multipart/form-data">
+                   {% csrf_token %}
+                <fieldset class="form-group">
+                   <legend class="border-bottom mb-4">Profile Info</legend>
+                     {{ u_form|crispy }}
+                     {{ p_form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                     <button type="submit" class="save btn btn-default btn-secondary">Update</button>
+                </div>
+      </form>
+</div>
+{% endif  %}
+<br>
+<br>
+{% endblock content %}

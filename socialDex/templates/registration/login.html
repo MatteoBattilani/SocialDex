@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{{ block.super }} | Login{% endblock head_title %}
+
+{% block content %}
+
+<div class="container my-5 text-center">
+<div class="row justify-content-center mt-4">
+    <div class="col-4 text-center">
+       <div class="border-bottom mb-4">
+       <legend class="border-bottom mb-4">Login</legend>
+       </div>
+        <form class="" action="{% url 'login' %}" method="POST" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="save btn btn-default btn-secondary" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+        <br>
+        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+        <div class="border-top pt-3">
+                   <small class="text-muted">
+                       Need An Account? <a class="ml-2" href="{% url 'registration' %}">Sign Up Now</a>
+                   </small>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock content %}
+
+
+
+

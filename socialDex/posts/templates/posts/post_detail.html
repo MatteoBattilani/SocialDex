@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} | Post Detail{% endblock head_title %}
+
+{% block content %}
+<div class="container my-5 text-center" style = "max-width: 580px;">
+    <article class="post">
+        <aside class="actions">
+            {% if object.user == user %}
+               <a class="btn btn-default" href="{% url 'post_update' object.id %}">
+                   Edit {% include './icons/pencil-fill.svg' %}
+               </a>
+               <a class="btn btn-default" href="{% url 'post_delete' object.id %}">
+                   Delete {% include './icons/delete.svg' %}
+               </a>
+            {% endif %}
+        </aside>
+        {% if object.published_date %}
+            <time class="date">
+                {{ object.published_date }}
+            </time>
+        {% endif %}
+        <h2>{{ object.title }}</h2>
+        <p>{{ object.content|linebreaksbr }}</p>
+    </article>
+</div>
+{% endblock %}

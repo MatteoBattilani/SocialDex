@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block head_title %}{{ block.super }} | Home{% endblock head_title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+ <div class="container my-5 text-center" style = "max-width: 580px;">
+          <h1>Blockchain Wall</h1>
+          <p class="lead">
+             Welcome to Ethereum's Ropsten blockchain board! Write a post and leave a permanent message on the blockchain!
+          </p>
+        </div>
+
+{% else %}
+        <div class="container my-5 text-center" style = "max-width: 580px;">
+          <h1>Blockchain Wall</h1>
+          <p class="lead">
+              A post board that writes directly to Ethereum's Ropsen blockchain! You can create a user and write your own post. Register now!
+          </p>
+        </div>
+{% endif %}
+
+{% if user.is_authenticated %}
+        {% for post in posts %}
+        <div class="container my-5 text-center" style = "max-width: 800px;">
+          <div class="card text-center">
+            <div class="card-header text-light bg-dark">
+
+                <a href="{% url 'user_profile' username=post.user.username %}">
+                <img height="50" width="50" align='left' class="rounded-circle" src="{{ post.user.profile.image.url }}">
+                </a>
+                     <time class="date">
+                      {{ post.datetime|date:"F d, Y - G:i" }}
+                     </time>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"> {{ post.title|truncatewords:10 }}</h5>
+              <p class="card-text"> {{ post.content|truncatechars:1500}} </p>
+              <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Read more</a>
+            </div>
+            <div class="card-footer text-light bg-dark">
+                  {% if post.user.first_name and post.user.last_name  %}
+                <a style="color:#FFFFFF" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.first_name }} {{post.user.last_name}}</a>
+                  {% else %}
+                <a style="color:#FFFFFF" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.username }}</a>
+                  {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+{% else %}
+     <div class="container my-5 text-center" style = "max-width: 800px;">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Attention!</h5>
+              <p class="card-text">To be able to see the posts, you have to log in.  Don't you have an account? You can register quickly, it only takes a minute!</p>
+            </div>
+            <div class="card-footer text-light">
+              <a href= "{% url 'login' %}" class="nav-item nav-link">Sign In</a>
+              <a href= "{% url 'registration' %}" class="nav-item nav-link">Sign up</a>
+            </div>
+          </div>
+        </div>
+
+{% endif %}
+
+{% endblock %}
+
+
