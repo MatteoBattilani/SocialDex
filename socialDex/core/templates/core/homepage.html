@@ -6,16 +6,21 @@
 {% if user.is_authenticated %}
  <div class="container my-5 text-center" style = "max-width: 580px;">
           <h1>Blockchain Wall</h1>
+     <br>
           <p class="lead">
-             Welcome to Ethereum's Ropsten blockchain board! Write a post and leave a permanent message on the blockchain!
+             Welcome to the Ethereum's Ropsten blockchain board!
+              <br>
+              Write a post and leave a permanent message on the blockchain.
           </p>
+
         </div>
 
 {% else %}
         <div class="container my-5 text-center" style = "max-width: 580px;">
           <h1>Blockchain Wall</h1>
           <p class="lead">
-              A post board that writes directly to Ethereum's Ropsen blockchain! You can create a user and write your own post. Register now!
+              A post board that writes directly to Ethereum's Ropsen blockchain!
+              You can create a user and write your own post. Register now!
           </p>
         </div>
 {% endif %}
@@ -38,11 +43,11 @@
               <p class="card-text"> {{ post.content|truncatechars:1500}} </p>
               <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Read more</a>
             </div>
-            <div class="card-footer text-light bg-dark">
+            <div class="card-footer text-light ">
                   {% if post.user.first_name and post.user.last_name  %}
-                <a style="color:#FFFFFF" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.first_name }} {{post.user.last_name}}</a>
+                <a style="color:#000000" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.first_name }} {{post.user.last_name}}</a>
                   {% else %}
-                <a style="color:#FFFFFF" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.username }}</a>
+                <a style="color:#000000" href="{% url 'user_profile' username=post.user.username %}">{{ post.user.username }}</a>
                   {% endif %}
             </div>
           </div>
@@ -55,9 +60,15 @@
               <h5 class="card-title">Attention!</h5>
               <p class="card-text">To be able to see the posts, you have to log in.  Don't you have an account? You can register quickly, it only takes a minute!</p>
             </div>
-            <div class="card-footer text-light">
-              <a href= "{% url 'login' %}" class="nav-item nav-link">Sign In</a>
-              <a href= "{% url 'registration' %}" class="nav-item nav-link">Sign up</a>
+            <div class="card-footer text-light ">
+                <div class="row mt-3">
+                <div class="col-6">
+                      <a href= "{% url 'login' %}" class="nav-item nav-link">Sign In</a>
+                </div>
+                <div class="col-6">
+                      <a href= "{% url 'registration' %}" class="nav-item nav-link">Sign up</a>
+                </div>
+                </div>
             </div>
           </div>
         </div>

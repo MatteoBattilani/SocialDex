@@ -6,8 +6,31 @@ from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 from django.http import HttpResponseRedirect
+from django.utils import timezone
+from datetime import timedelta
 
 # Create your views here.
+def posts24(request):
+    """
+          posts function returns a JSON list of all posts created in the last hour.
+    """
+    response = []
+    last_hour = timezone.now() - timedelta(hours=1)
+    posts = Post.objects.filter(datetime__gte=last_hour)
+    for post in posts:
+        response.append(
+            {
+                'datetime': post.datetime,
+                'content': post.content,
+                'author': f"{post.user.first_name} {post.user.last_name}",
+                'hash': post.hash,
+                'txId': post.txId
+            }
+        )
+    return JsonResponse(response, safe=False, )
+
+
+
 def posts(request):
     """
           posts function returns a JSON list of all posts created in the last hour.
@@ -18,7 +41,7 @@ def posts(request):
         response.append(
             {
                 'datetime': post.datetime,
-                'title':post.title,
+                'title': post.title,
                 'content': post.content,
                 'author': f"{post.user.first_name} {post.user.last_name}",
                 'hash': post.hash,
@@ -26,10 +49,6 @@ def posts(request):
             }
         )
     return JsonResponse(response, safe=False)
-
-
-
-
 
 """
      The function allows to create a new post. Only registred user can write a post, so login is required.

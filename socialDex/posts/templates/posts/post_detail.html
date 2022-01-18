@@ -3,6 +3,31 @@
 {% block head_title %}{{ block.super }} | Post Detail{% endblock head_title %}
 
 {% block content %}
+
+<div class="container my-5 text-center" style = "max-width: 580px;">
+    <div class="container">
+        <a href="#" data-toggle='collapse'
+            data-target="#filters, #hide_filters"> <p><strong>Blockchain Informations</strong></p>
+        </a>
+       <div id="filters" class="collapse out">
+            <h5>Transaction identifier</h5>
+            <p> <strong>{{ object.txId }}</strong> </p>
+            <p>You can search for this code on Etherscan.</p>
+       </div>
+        <hr>
+        <div id="filters" class="collapse out">
+            <h5>Hash</h5>
+            <p> <strong>{{ object.hash }}</strong> </p>
+            <p>This is the post hash.</p>
+   </div>
+</div>
+
+
+
+
+
+
+
 <div class="container my-5 text-center" style = "max-width: 580px;">
     <article class="post">
         <aside class="actions">
@@ -15,6 +40,7 @@
                </a>
             {% endif %}
         </aside>
+        <br>
         {% if object.published_date %}
             <time class="date">
                 {{ object.published_date }}
