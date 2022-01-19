@@ -41,7 +41,7 @@
             <div class="card-body">
               <h5 class="card-title"> {{ post.title|truncatewords:10 }}</h5>
               <p class="card-text"> {{ post.content|truncatechars:1500}} </p>
-              <a href="{% url 'post_detail' pk=post.pk %}" class="btn btn-primary">Read more</a>
+              <a href="{% url 'post_detail' pk=post.pk %}" class="save btn btn-default btn-secondary">Read more</a>
             </div>
             <div class="card-footer text-light ">
                   {% if post.user.first_name and post.user.last_name  %}
