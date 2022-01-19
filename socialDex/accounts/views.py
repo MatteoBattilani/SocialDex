@@ -3,7 +3,13 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 # Create your views here.
+
+
+"""
+   This function allows users to sign up the site
+"""
 
 def registration(request):
     if request.method == "POST":
@@ -17,6 +23,11 @@ def registration(request):
         form = UserRegisterForm()
     return render(request, 'accounts/registration.html', {'form': form})
 
+
+
+"""
+    This function allows to access / update the profile page 
+"""
 
 # Using this decorator, to access the page the user have to log in
 @login_required

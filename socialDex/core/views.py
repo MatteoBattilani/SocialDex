@@ -4,15 +4,11 @@ from posts.models import Post
 from django.contrib.auth.models import User
 
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixin import StaffMixin
-
 from accounts.forms import UserUpdateForm, ProfileUpdateForm
 
 from django.contrib.auth.decorators import login_required
 
-# This is the library for the ip adresses
-from ipware import get_client_ip
 
 # Create your views here.
 
@@ -29,8 +25,8 @@ class PostList(ListView):
 
 
 """
-Vista che torna un utente grazie alla chiamata "user/nomeutente". E' come la ricerca utente per chiave primaria,
-ma in questo caso la ricerca avviene tramite nome utente.
+    View returning a user by the call 'user/user name'. It is like the user search by primary key,
+    but in this case the search is by user name.
 """
 # Using this decorator, to access the page the user have to log in
 @login_required
@@ -57,6 +53,8 @@ def user_profile_view(request, username):
             'p_form': p_form}
         return render(request, 'accounts/user_profile.html', context)
 
+
+
 """
     This function returns a list of all the users. Only staff users can access this function.
     If a base user try to access the function he will get "403 Forbidden" error.
@@ -77,7 +75,7 @@ def cerca(request):
     if "q" in request.GET:
         querystring= request.GET.get("q")
         if len(querystring) == 0:
-            return redirect(("/cerca/"))
+            return redirect(("/search/"))
        # icontains checks that the value associated to the querystring is conteined in title, content and username
         posts_titles= Post.objects.filter(title__icontains=querystring)
         posts_content= Post.objects.filter(content__icontains=querystring)
