@@ -11,25 +11,30 @@ from django.contrib.auth.decorators import login_required
    This function allows users to sign up the site
 """
 
+
 def registration(request):
     if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get("username")
-            messages.success(request, f'{username}, your account has been created! You are now able to log in!')
-            return redirect("login")  #after registration, user is redirected on login page
+            messages.success(
+                request,
+                f'{username}, your account has been created! You are now able to log in!')
+            # after registration, user is redirected on login page
+            return redirect("login")
     else:
         form = UserRegisterForm()
     return render(request, 'accounts/registration.html', {'form': form})
 
 
-
 """
-    This function allows to access / update the profile page 
+    This function allows to access / update the profile page
 """
 
 # Using this decorator, to access the page the user have to log in
+
+
 @login_required
 def profile(request, pk):
     # if you are updating your account

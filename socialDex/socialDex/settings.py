@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 ]
 
-CRISPY_TEMPLATE_PACK= 'bootstrap5'
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -65,7 +65,7 @@ ROOT_URLCONF = 'socialDex.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates"),],
+        'DIRS': [os.path.join(BASE_DIR, "templates"), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS= [os.path.join(BASE_DIR, "static-storage")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static-storage")]
 
 # MEDIA_ROOT is where the uploded images will be saved
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -141,8 +141,9 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# after login, django default redirect is to "accounts/profile". Here I can change it:
-LOGIN_REDIRECT_URL = '/'   #redirect to the homepage
+# after login, django default redirect is to "accounts/profile". Here I
+# can change it:
+LOGIN_REDIRECT_URL = '/'  # redirect to the homepage
 
 
-EMAIL_BACKEND= 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

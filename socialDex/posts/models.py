@@ -7,11 +7,17 @@ from .utils import sendTransaction
 import hashlib
 
 # Create your models here.
+
+
 class Post(models.Model):
-    user= models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='posts')
     title = models.CharField(max_length=200)
-    datetime= models.DateTimeField(auto_now_add=True) # sets the time of the post to the time at which it was written
-    content= models.TextField()
+    # sets the time of the post to the time at which it was written
+    datetime = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
     hash = models.CharField(max_length=32, default=None, null=True)
     txId = models.CharField(max_length=66, default=None, null=True)
 

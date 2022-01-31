@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import  JsonResponse
+from django.http import JsonResponse
 from .models import Post
 from .forms import PostForm
 
@@ -31,7 +31,6 @@ def posts24(request):
     return JsonResponse(response, safe=False, )
 
 
-
 def posts(request):
     """
           posts function returns a JSON list of all posts created in the last hour.
@@ -52,11 +51,13 @@ def posts(request):
     return JsonResponse(response, safe=False)
 
 
-
 """
      The function allows to create a new post. Only registred user can write a post, so login is required.
 """
-# LoginRequiredMixin is used to block the access to the new post creation page if the user is not logged in.
+# LoginRequiredMixin is used to block the access to the new post creation
+# page if the user is not logged in.
+
+
 class CreatePost(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
@@ -71,19 +72,14 @@ class CreatePost(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-
-
-
 """
-     The function allows to access the datail of a post. 
+     The function allows to access the datail of a post.
 """
+
 
 class PostDetail(DetailView):
     model = Post
     template_name = "posts/post_detail.html"
-
-
-
 
 
 """
@@ -91,7 +87,10 @@ class PostDetail(DetailView):
     Only the owner of the post can do it.
 """
 
-# UserPassesTestMixin is used in order to allow only the author of a post to edit it.
+# UserPassesTestMixin is used in order to allow only the author of a post
+# to edit it.
+
+
 class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ('title', 'content')
@@ -115,16 +114,19 @@ class PostUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         return posts.get_absolute_url()
 
 
-
 """
     This function allows, the owner of a post, to delete it.
     Only the owner of the post can delete it.
 """
 
-# UserPassesTestMixin is used in order to allow only the author of a post to delete it.
+# UserPassesTestMixin is used in order to allow only the author of a post
+# to delete it.
+
+
 class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
-    # succes_url is used to redirect the user to homepage after he's deleted the post
+    # succes_url is used to redirect the user to homepage after he's deleted
+    # the post
     template_name = 'posts/post_delete.html'
     success_url = '/'
 
@@ -133,4 +135,3 @@ class PostDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.user:
             return True
         return False
-

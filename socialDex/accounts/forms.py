@@ -6,8 +6,9 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 """
-   New account's registration form. This is a subclass of UserCreationForm.
+    New account's registration form. This is a subclass of UserCreationForm.
 """
+
 
 class UserRegisterForm(UserCreationForm):
     # added the email field 'cause User in django doesn't have it for default
@@ -16,7 +17,6 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-
 
 
 # account's update registration form

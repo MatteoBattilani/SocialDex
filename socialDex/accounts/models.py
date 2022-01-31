@@ -4,8 +4,10 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # class Profile will have one to one relationship with User
+
+
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete= models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     last_login_IP = models.GenericIPAddressField(blank=True, null=True)
     alert = models.BooleanField(default=False)

@@ -6,10 +6,12 @@ from ipware import get_client_ip
 
 from .models import Profile
 
+
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
 
 @receiver(user_logged_in, sender=User)
 def save_profile(sender, request, user, **kwargs):
@@ -23,4 +25,3 @@ def save_profile(sender, request, user, **kwargs):
         profile.alert = True
     profile.last_login_IP = ip
     profile.save()
-
